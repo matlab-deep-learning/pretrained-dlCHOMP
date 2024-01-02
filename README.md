@@ -1,92 +1,123 @@
-# pretrained-dlCHOMP
+# Pretrained dlCHOMP for Manipulator Motion Planning
+This repository provides pretrained dlCHOMP robotic manipulator trajectory prediction networks for MATLAB®. These trajectory predictors can predict start to goal trajectories in a given spherical obstacle environment. [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=matlab-deep-learning/pretrained-dlCHOMP)
 
+**Creator**: MathWorks Development
 
+**Includes un-trained model**: ❌  
 
-## Getting started
+**Includes transfer learning script**: ❌ 
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+**Supported Robots**:
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+| Robot Name  | Supported |
+| ------ | ------ |
+| kinovaGen3 |✔️|
+| universalUR5e |✔️|
+| frankaEmikaPanda |✔️|
+| kukaIiwa7 |✔️|
+| abbYuMi |✔️|
+| fanucM16ib |✔️|
+| fanucLRMate200ib |✔️|
+| techmanTM5-700 |✔️|
+| kinovaJacoJ2S7S300 |✔️|
+| meca500r3 |✔️|
 
-## Add your files
+## Requirements
+- MATLAB® R2024a or later
+- Robotics System Toolbox™
+- Deep Learning Toolbox™
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+## Getting Started
+Download or clone this repository to your machine and open it in MATLAB®.
 
+### Setup
+Add path to the source directory.
+
+```matlab
+addpath('src');
 ```
-cd existing_repo
-git remote add origin https://insidelabs-git.mathworks.com/rst-projects/pretrained-dlchomp.git
-git branch -M main
-git push -uf origin main
+
+### Download the pretrained network
+Use the code below to download the pretrained network for a supported robot.
+
+```matlab
+robotName = 'kukaIiwa7';
+data = helper.downloadPretrainedDLCHOMPForRobot(robotName);
+dlchomp = data.dlchomp;
 ```
 
-## Integrate with your tools
+### Predict Trajectory Using Pretrained dlCHOMP
+Use the code below to predict a start to goal trajectory on an example obstacle environment using the pre-trained model.
 
-- [ ] [Set up project integrations](https://insidelabs-git.mathworks.com/rst-projects/pretrained-dlchomp/-/settings/integrations)
+```matlab
+% Specify path to test sample.
+pathToTestSample = fullfile('test',robotName,'sample.json');
 
-## Collaborate with your team
+% Read test environment's start, goal and obstacles.
+[start,goal,obstacles,~] = helper.extractDataFromDLCHOMPSample(pathToTestSample);
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+% Make obstacles known to pretrained dlCHOMP.
+dlchomp.SphericalObstacles = obstacles;
 
-## Test and Deploy
+% Predict start to goal trajectory using pretrained model.
+[optimWpts,optimTpts,solinfo] = optimize(dlchomp,start,goal);
 
-Use the built-in continuous integration in GitLab.
+% Visualize results.
+show(dlchomp,optimWpts);
+```
+![Results](/resources/images/result.png)
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+### Train Custom dlCHOMP Using Transfer Learning
+Transfer learning enables you to adapt a pretrained dlCHOMP network to your dataset. Create a custom dlCHOMP network and train it for transfer learning to:
+- A different number of waypoints in trajectory by following the [Using Pretrained DLCHOMP Optimizer to Predict Higher Number of Waypoints](https://link-to-example) example.
+- A different spherical obstacle environment and/or a different set of CHOMP optimization options by following the [Using Pretrained DLCHOMP Optimizer in Unseen Obstacle Environment](https://link-to-example) example.
 
-***
+## Deployment
+Code generation enables you to generate code and deploy EfficientDet-D0 on multiple embedded platforms. Code generation for dlCHOMP will be suppored in a later release of MATLAB.
 
-# Editing this README
+## Network Details
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+EfficientDets are a family of object detection models. These are developed based on the advanced EfficientDet backbones, a new BiFPN module, and compound scaling technique. They follow the one-stage detectors paradigm.
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+![EfficientDetArch](/images/network.png)
 
-## Name
-Choose a self-explaining name for your project.
+- **Backbone**: EfficientDets[3] are used as backbone networks for this class of object detectors. EfficientDets are a class of convolutional neural network architecture and scaling method that uniformly scales all dimensions of depth/width/resolution using a compound coefficient. Unlike conventional practice that arbitrary scales these factors, the EfficientDet scaling method uniformly scales network width, depth, and resolution with a set of fixed scaling coefficients. It has eight variants out of which, EfficientDet-B0 is used as the backbone for this model.
+ 
+- **BiFPN Module**: A weighted bi-directional feature pyramidal network enhanced with fast normalization, which enables easy and fast multi-scale feature fusion. This module takes level 3-7 features (P3, P4, P5, P6, P7) from the backbone network and repeatedly applies top-down and bottom-up bidirectional feature fusion. These fused features are fed to a class prediction network and box prediction network to produce object class and bounding box predictions respectively. The class and box prediction network weights are shared across all levels of features.
+This module is implemented using a combination of layers such as convolution, resize, element-wise multiplication, element-wise addition, element-wise division etc.
+ 
+- **Scaling**: A compound scaling method that uniformly scales the resolution, depth, and width for all backbone, feature network, and box/class prediction networks at the same time. This method helps in optimizing both accuracy and efficiency for the model.
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+- **Class Prediction Net**: This network processes the fused features from the previous BiFPN modules and produces class prediction outputs. This network is implemented using a combination of layers such as convolution, sigmoid, element-wise multiplication etc.
+ 
+- **Box Prediction Net**: This network processes the fused features from the previous BiFPN modules and produces bounding box prediction outputs. This network is implemented using a combination of layers such as convolution, sigmoid, element-wise multiplication etc.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+## Metrics and Evaluation
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+### Size and Accuracy Metrics
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+| Model           | Input image resolution | Mean average precision (mAP) | Size (MB) |
+|-----------------|:----------------------:|:----------------------------:|:---------:|
+| EfficientDet-D0 |       512 x 512        |               33.7           |  15.9     |
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+mAP for models trained on the COCO dataset is computed as average over IoU of .5:.95.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+### Deployment Metrics
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+| Model                           | Inference Speed (FPS) |
+|---------------------------------|:---------------------:|
+| EfficientDet-D0 without codegen |         4.8437        |
+| EfficientDet-D0 + GPU Coder     |        27.3658        |
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+Performance (in FPS) is measured on a TITAN-RTX GPU using 512x512 image.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+## References
+[1] Tan, Mingxing, Ruoming Pang, and Quoc V. Le. "Efficientdet: Scalable and efficient object detection." In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition, pp. 10781-10790. 2020.
 
-## License
-For open source projects, say how it is licensed.
+[2] Lin, T., et al. "Microsoft COCO: Common objects in context. arXiv 2014." arXiv preprint arXiv:1405.0312 (2014).
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+[3] Tan, Mingxing, and Quoc Le. "Efficientnet: Rethinking model scaling for convolutional neural networks." International Conference on Machine Learning. PMLR, 2019.
+
+Copyright 2021 The MathWorks, Inc.
