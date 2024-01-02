@@ -45,7 +45,7 @@ Use the code below to download the pretrained network for a supported robot.
 ```matlab
 robotName = 'kukaIiwa7';
 data = helper.downloadPretrainedDLCHOMPForRobot(robotName);
-dlchomp = data.dlchomp;
+pretrainedDLCHOMP = data.dlchomp;
 ```
 
 ### Predict Trajectory Using Pretrained dlCHOMP
@@ -59,13 +59,13 @@ pathToTestSample = fullfile('test',robotName,'sample.json');
 [start,goal,obstacles,~] = helper.extractDataFromDLCHOMPSample(pathToTestSample);
 
 % Make obstacles known to pretrained dlCHOMP.
-dlchomp.SphericalObstacles = obstacles;
+pretrainedDLCHOMP.SphericalObstacles = obstacles;
 
 % Predict start to goal trajectory using pretrained model.
-[optimWpts,optimTpts,solinfo] = optimize(dlchomp,start,goal);
+[optimWpts,optimTpts,solinfo] = optimize(pretrainedDLCHOMP,start,goal);
 
 % Visualize results.
-show(dlchomp,optimWpts);
+show(pretrainedDLCHOMP,optimWpts);
 ```
 ![dlCHOMP Output Prediction](/resources/images/dlCHOMP_Output_Prediction.png)
 
