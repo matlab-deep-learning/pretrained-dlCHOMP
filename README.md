@@ -78,7 +78,7 @@ Transfer learning enables you to adapt a pretrained dlCHOMP network to your data
 - A different spherical obstacle environment and/or a different set of CHOMP optimization options by following the [Using Pretrained DLCHOMP Optimizer in Unseen Obstacle Environment](https://link-to-example) example.
 
 ## Deployment
-Code generation enables you to generate code and deploy EfficientDet-D0 on multiple embedded platforms. Code generation for dlCHOMP will be suppored in a later release of MATLAB.
+Code generation enables you to generate code and deploy dlCHOMP on multiple embedded platforms. Code generation for dlCHOMP will be suppored in a later release of MATLAB.
 
 ## dlCHOMP Details
 
@@ -96,27 +96,27 @@ Optimization based motion planning tasks can be sped up using deep learning[1]. 
 
 ![dlCHOMP Network Architecture](/resources/images/dlCHOMP_Network_Architecture.png)
 
-The architecture of dlCHOMP’s neural network **Initializer** module is shown above. It takes a given motion task (world **WB**, start configuration **q1** and end configuration **qNt**) to output an initial guess **Q**. Blocks of tapered Fully Connected Layers (gray) are combined like the DenseNet architecture[3] via skip-connections and concatenations.
+The architecture of dlCHOMP’s neural network **Initializer** module is shown above[2]. It takes a given motion task (world **WB**, start configuration **q1** and end configuration **qNt**) to output an initial guess **Q**. Blocks of tapered Fully Connected Layers (gray) are combined like the DenseNet architecture[3] via skip-connections and concatenations.
 
 ## Metrics and Evaluation
 
 ### Size and Accuracy Metrics
 
-| Model           | Input image resolution | Mean average precision (mAP) | Size (MB) |
-|-----------------|:----------------------:|:----------------------------:|:---------:|
-| EfficientDet-D0 |       512 x 512        |               33.7           |  15.9     |
+The test dataset considered for each model consisted of 500 data samples and was the same as the validation dataset created while generating the training data for the model as shown in the **Training Data Generation section** above.
 
+| dlCHOMP Model           | Size (MB) | % of samples with dlCHOMP Itns < CHOMP | Mean % of Itns Saved  | % of samples with dlCHOMP Inference Time < CHOMP | Mean % of Time Saved | Feasibility
+|-----------------|:----------------------:|:----------------------------:|:---------:|:---------:|:---------:|:---------:|
+| kukaIiwa7 |       25        |               84.60           |  79.98     | 74.10 | 72.23 | 76.00 |
 
-mAP for models trained on the COCO dataset is computed as average over IoU of .5:.95.
 
 ### Deployment Metrics
 
-| Model                           | Inference Speed (FPS) |
-|---------------------------------|:---------------------:|
-| EfficientDet-D0 without codegen |         4.8437        |
-| EfficientDet-D0 + GPU Coder     |        27.3658        |
+The average neural guess times and average inference times were computed over the test dataset consisting of 500 data samples.
 
-Performance (in FPS) is measured on a TITAN-RTX GPU using 512x512 image.
+| dlCHOMP Model without codegen                           | Avg. Neural Guess Time (secs) | Avg. Inference Time (secs)|
+|---------------------------------|:---------------------:|:---------------------:|
+| kukaIiwa7 |         0.0609     | 0.2586|
+
 
 
 ## References
