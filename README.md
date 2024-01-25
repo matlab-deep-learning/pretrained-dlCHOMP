@@ -77,9 +77,6 @@ Transfer learning enables you to adapt a pretrained dlCHOMP network to your data
 - A different number of waypoints in trajectory by following the [Using Pretrained DLCHOMP Optimizer to Predict Higher Number of Waypoints](https://link-to-example) example.
 - A different spherical obstacle environment and/or a different set of CHOMP optimization options by following the [Using Pretrained DLCHOMP Optimizer in Unseen Obstacle Environment](https://link-to-example) example.
 
-## Deployment
-Code generation enables you to generate code and deploy dlCHOMP on multiple embedded platforms. Code generation for dlCHOMP will be suppored in a later release of MATLAB.
-
 ## dlCHOMP Details
 
 Optimization based motion planning tasks can be sped up using deep learning[1]. **dlCHOMP** is one such feature that utilizes a neural network initial guesser to provide an educated initial guess for a robot trajectory, which is then optimized using the **Covariant Hamiltonian Optimization for Motion Planning (CHOMP)**[2] algorithm.
@@ -109,7 +106,7 @@ The test dataset considered for each model consisted of 500 data samples and was
 | kukaIiwa7 |       25        |               84.60           |  79.98     | 74.10 | 72.23 | 76.00 |
 
 
-### Deployment Metrics
+### CPU Time Metrics
 
 The average neural guess times and average inference times were computed over the test dataset consisting of 500 data samples.
 
