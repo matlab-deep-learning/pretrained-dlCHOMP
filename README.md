@@ -9,20 +9,7 @@ This repository provides pretrained dlCHOMP robotic manipulator trajectory predi
 
 **Includes transfer learning script**: ❌ 
 
-**Supported Robots**:
-
-| Robot Name  | Supported |
-| ------ | ------ |
-| kinovaGen3 |✔️|
-| universalUR5e |✔️|
-| frankaEmikaPanda |✔️|
-| kukaIiwa7 |✔️|
-| abbYuMi |✔️|
-| fanucM16ib |✔️|
-| fanucLRMate200ib |✔️|
-| techmanTM5-700 |✔️|
-| kinovaJacoJ2S7S300 |✔️|
-| meca500r3 |✔️|
+**Supported Robots**: [See this page](https://www.mathworks.com/help/releases/R2024a/robotics/ref/dlchomp.html)
 
 ## Requirements
 - MATLAB® R2024a or later
