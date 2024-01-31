@@ -1,4 +1,4 @@
-# Pretrained dlCHOMP for Manipulator Motion Planning
+# Pretrained dlCHOMP Planners for Manipulator Motion Planning
 This repository provides pretrained dlCHOMP robotic manipulator trajectory planners for MATLAB®. These trajectory planners can output optimized start to goal trajectories in a given spherical obstacle environment. [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=matlab-deep-learning/pretrained-dlCHOMP)
 
 ![dlCHOMP High Level Visualization](/resources/images/dlCHOMP_High-Level_Vizualization.png)
