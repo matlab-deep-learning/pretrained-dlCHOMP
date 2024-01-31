@@ -1,5 +1,5 @@
 # Pretrained dlCHOMP for Manipulator Motion Planning
-This repository provides pretrained dlCHOMP robotic manipulator trajectory prediction networks for MATLAB®. These trajectory predictors can predict start to goal trajectories in a given spherical obstacle environment. [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=matlab-deep-learning/pretrained-dlCHOMP)
+This repository provides pretrained dlCHOMP robotic manipulator trajectory planners for MATLAB®. These trajectory planners can output optimized start to goal trajectories in a given spherical obstacle environment. [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=matlab-deep-learning/pretrained-dlCHOMP)
 
 ![dlCHOMP High Level Visualization](/resources/images/dlCHOMP_High-Level_Vizualization.png)
 
@@ -27,7 +27,7 @@ addpath('src');
 ```
 
 ### Download the pretrained network
-Use the code below to download the pretrained network for a supported robot.
+Use the code below to download the pretrained `dlCHOMP` planner for a supported robot.
 
 ```matlab
 robotName = 'kukaIiwa7';
@@ -36,7 +36,7 @@ pretrainedDLCHOMP = data.dlchomp;
 ```
 
 ### Predict Trajectory Using Pretrained dlCHOMP
-Use the code below to predict a start to goal trajectory on an example obstacle environment using the pre-trained model.
+Use the code below to predict a start to goal trajectory on an example obstacle environment using the pretrained planner.
 
 ```matlab
 % Specify path to test sample.
@@ -48,7 +48,7 @@ pathToTestSample = fullfile('test',robotName,'sample.json');
 % Make obstacles known to pretrained dlCHOMP.
 pretrainedDLCHOMP.SphericalObstacles = obstacles;
 
-% Predict start to goal trajectory using pretrained model.
+% Predict start to goal trajectory using pretrained planner.
 [optimWpts,optimTpts,solinfo] = optimize(pretrainedDLCHOMP,start,goal);
 
 % Visualize results.
@@ -57,10 +57,10 @@ show(pretrainedDLCHOMP,optimWpts);
 ![dlCHOMP Output Prediction](/resources/images/dlCHOMP_Output_Prediction.png)
 
 ### Train Custom dlCHOMP From Scratch
-To generate data and train a custom dlCHOMP network from scratch, follow the [Getting Started with DLCHOMP Optimizer for Manipulator Motion Planning](https://link-to-example) example.
+To generate data and train a custom dlCHOMP planner from scratch, follow the [Getting Started with DLCHOMP Optimizer for Manipulator Motion Planning](https://link-to-example) example.
 
 ### Train Custom dlCHOMP Using Transfer Learning
-Transfer learning enables you to adapt a pretrained dlCHOMP network to your dataset. Create a custom dlCHOMP network and train it for transfer learning to:
+Transfer learning enables you to adapt a pretrained dlCHOMP planner to your dataset. Create a custom dlCHOMP planner and train it for transfer learning to:
 - A different number of waypoints in trajectory by following the [Using Pretrained DLCHOMP Optimizer to Predict Higher Number of Waypoints](https://link-to-example) example.
 - A different spherical obstacle environment and/or a different set of CHOMP optimization options by following the [Using Pretrained DLCHOMP Optimizer in Unseen Obstacle Environment](https://link-to-example) example.
 
@@ -80,7 +80,7 @@ Optimization based motion planning tasks can be sped up using deep learning[1]. 
 
 ![dlCHOMP Network Architecture](/resources/images/dlCHOMP_Network_Architecture.png)
 
-The architecture of dlCHOMP’s neural network **Initializer** module is shown above[2]. It takes a given motion task (world **WB**, start configuration **q1** and end configuration **qNt**) to output an initial guess **Q**. Blocks of tapered Fully Connected Layers (gray) are combined like the DenseNet architecture[3] via skip-connections and concatenations.
+The architecture of dlCHOMP planner’s neural network **Initializer** module is shown above[2]. It takes a given motion task (world **WB**, start configuration **q1** and end configuration **qNt**) to output an initial guess **Q**. Blocks of tapered Fully Connected Layers (gray) are combined like the DenseNet architecture[3] via skip-connections and concatenations.
 
 ## Metrics and Evaluation
 
