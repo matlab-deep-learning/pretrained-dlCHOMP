@@ -31,7 +31,8 @@ Use the code below to download the pretrained `dlCHOMP` planner for a supported 
 
 ```matlab
 robotName = 'kukaIiwa7';
-data = helper.downloadPretrainedDLCHOMPForRobot(robotName);
+pretrainedPlannerURL = 'https://ssd.mathworks.com/supportfiles/rst/data/dlCHOMP/R2024a/kukaIiwa7DLCHOMPTrained.zip';
+data = helper.downloadPretrainedDLCHOMPFromURL(pretrainedPlannerURL);
 pretrainedDLCHOMP = data.dlchomp;
 ```
 
