@@ -42,6 +42,10 @@ Use the code below to extract the pretrained network and summarize it.
 pretrainedNetwork = data.trainedNetwork;
 summary(pretrainedNetwork);
 ```
+
+![dlnetwork Summary](/resources/images/dlnetwork_Summary.png)
+
+
 If you only wished to obtain the network and not the planner, you can skip the next few sections, otherwise, continue.
 
 ### Obtain Pretrained Planner
