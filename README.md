@@ -26,7 +26,7 @@ Add path to the source directory.
 addpath('src');
 ```
 
-### Download the pretrained planner and network
+### Download Pretrained Planner
 Use the code below to download the pretrained `dlCHOMP` planner for a supported robot. For a list of pretrained planner URLs, refer to the supported robots link specified under the [repository overview section above](#pretrained-dlchomp-planners-for-manipulator-motion-planning).
 
 ```matlab
@@ -35,20 +35,19 @@ pretrainedPlannerURL = 'https://ssd.mathworks.com/supportfiles/rst/data/dlCHOMP/
 data = helper.downloadPretrainedDLCHOMPFromURL(pretrainedPlannerURL);
 ```
 
-### Summarize Pretrained Network
-Use the code below to extract the pretrained network and summarize it.
-
-```matlab
-pretrainedNetwork = data.trainedNetwork;
-summary(pretrainedNetwork);
-```
-If you only wished to obtain the network and not the planner, you can skip the next few sections, otherwise, continue.
-
 ### Obtain Pretrained Planner
 Use the code below to extract the pretrained planner.
 
 ```matlab
 pretrainedDLCHOMP = data.trainedDLCHOMP;
+```
+
+### Summarize Pretrained Network
+Use the code below to extract the pretrained network from the pretrained planner and summarize it.
+
+```matlab
+pretrainedNetwork = pretrainedDLCHOMP.Network;
+summary(pretrainedNetwork);
 ```
 
 ### Predict Trajectory Using Pretrained Planner
