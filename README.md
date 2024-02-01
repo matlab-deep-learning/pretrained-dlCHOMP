@@ -27,7 +27,7 @@ addpath('src');
 ```
 
 ### Download the pretrained network
-Use the code below to download the pretrained `dlCHOMP` planner for a supported robot. For a list of pretrained planner URLs, refer to the supported robots link specified under the [repository overview section above](#Pretrained dlCHOMP Planners for Manipulator Motion Planning).
+Use the code below to download the pretrained `dlCHOMP` planner for a supported robot. For a list of pretrained planner URLs, refer to the supported robots link specified under the [repository overview section above](#pretrained-dlchomp-planners-for-manipulator-motion-planning).
 
 ```matlab
 robotName = 'kukaIiwa7';
