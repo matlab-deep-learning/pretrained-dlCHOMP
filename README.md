@@ -29,15 +29,17 @@ addpath('src');
 ```
 
 ### Download the Pretrained Planner and Network
-Use the code below to download the pretrained `dlCHOMP` planner and pretrained `dlnetwork` network for a supported robot. For a list of pretrained planner URLs, refer to the supported robots link specified under the [repository overview section above](#pretrained-dlchomp-planners-for-manipulator-motion-planning).
+Use the code below to download the pretrained `dlCHOMP` planner and pretrained `dlnetwork` network for a supported robot. For a list of supported robots, refer to the supported robots link specified under the [repository overview section above](#pretrained-dlchomp-planners-for-manipulator-motion-planning). Let's see the workflow for `kukaIiwa7` since it is one such supported robot. 
 
 ```matlab
 robotName = 'kukaIiwa7';
-data = helper.downloadPretrainedDLCHOMPFromURL(robotName);
+data = helper.downloadPretrainedDLCHOMPForRobot(robotName);
 ```
 
+To download the pretrained network for another supported robot, simply replace `robotName` above with a supported robot name.
+
 ### Summarize Pretrained Network
-Use the code below to extract the pretrained network, summarize and analyze it.
+Use the code below to extract the pretrained network, then summarize and analyze it.
 
 ```matlab
 pretrainedNetwork = data.trainedNetwork;
@@ -74,8 +76,8 @@ To generate data and train a custom dlCHOMP planner from scratch, follow the [Ge
 
 ### Train Custom dlCHOMP Using Transfer Learning
 Transfer learning enables you to adapt a pretrained dlCHOMP planner to your dataset. Create a custom dlCHOMP planner and train it for transfer learning to:
-- A different number of waypoints in trajectory by following the [Using Pretrained DLCHOMP Optimizer to Predict Higher Number of Waypoints](https://link-to-example) example.
-- A different spherical obstacle environment and/or a different set of CHOMP optimization options by following the [Using Pretrained DLCHOMP Optimizer in Unseen Obstacle Environment](https://link-to-example) example.
+- A different number of waypoints in trajectory by following the [Using Pretrained DLCHOMP Optimizer to Predict Higher Number of Waypoints](https://www.mathworks.com/help/releases/R2024a/robotics/ug/retrain-dlchomp-optimizer-for-different-trajectory.html) example.
+- A different spherical obstacle environment and/or a different set of CHOMP optimization options by following the [Using Pretrained DLCHOMP Optimizer in Unseen Obstacle Environment](https://www.mathworks.com/help/releases/R2024a/robotics/ug/retrain-dlchomp-optimizer-for-new-environment.html) example.
 
 ## dlCHOMP Details
 
