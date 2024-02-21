@@ -7,10 +7,11 @@ This repository provides pretrained dlCHOMP robotic manipulator trajectory plann
 
 **Includes un-trained model**: ❌  
 
-**Includes transfer learning script**: ❌  
-(![See this page for examples](https://www.mathworks.com/help/releases/R2024a/robotics/ref/dlchomp.html#mw_87c86e03-23d5-48f9-818f-356a363287ab)) 
+**Includes transfer learning script**: ✅  
+([See this page](https://www.mathworks.com/help/releases/R2024a/robotics/ref/dlchomp.html#mw_87c86e03-23d5-48f9-818f-356a363287ab))
 
-**Supported Robots**: [See this page](https://www.mathworks.com/help/releases/R2024a/robotics/ref/dlchomp.html#mw_93957c22-f6cc-4e8c-ac45-1ae16cfcb2ef)
+**Supported Robots**: ✅   
+([See this page](https://www.mathworks.com/help/releases/R2024a/robotics/ref/dlchomp.html#mw_93957c22-f6cc-4e8c-ac45-1ae16cfcb2ef))
 
 ## Requirements
 - MATLAB® R2024a or later
