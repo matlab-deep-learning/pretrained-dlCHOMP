@@ -7,9 +7,10 @@ This repository provides pretrained dlCHOMP robotic manipulator trajectory plann
 
 **Includes un-trained model**: ❌  
 
-**Includes transfer learning script**: ❌ 
+**Includes transfer learning script**: ❌  
+(![See this page for examples](https://www.mathworks.com/help/releases/R2024a/robotics/ref/dlchomp.html#mw_87c86e03-23d5-48f9-818f-356a363287ab)) 
 
-**Supported Robots**: [See this page](https://www.mathworks.com/help/releases/R2024a/robotics/ref/dlchomp.html)
+**Supported Robots**: [See this page](https://www.mathworks.com/help/releases/R2024a/robotics/ref/dlchomp.html#mw_93957c22-f6cc-4e8c-ac45-1ae16cfcb2ef)
 
 ## Requirements
 - MATLAB® R2024a or later
@@ -31,20 +32,17 @@ Use the code below to download the pretrained `dlCHOMP` planner and pretrained `
 
 ```matlab
 robotName = 'kukaIiwa7';
-pretrainedPlannerURL = 'https://ssd.mathworks.com/supportfiles/rst/data/dlCHOMP/R2024a/kukaIiwa7DLCHOMPTrained.zip';
-data = helper.downloadPretrainedDLCHOMPFromURL(pretrainedPlannerURL);
+data = helper.downloadPretrainedDLCHOMPFromURL(robotName);
 ```
 
 ### Summarize Pretrained Network
-Use the code below to extract the pretrained network and summarize it.
+Use the code below to extract the pretrained network, summarize and analyze it.
 
 ```matlab
 pretrainedNetwork = data.trainedNetwork;
 summary(pretrainedNetwork);
+analyzeNetwork(pretrainedNetwork);
 ```
-
-![dlnetwork Summary](/resources/images/dlnetwork_Summary.png)
-
 
 If you only wished to obtain the network and not the planner, you can skip the next few sections, otherwise, continue.
 
@@ -59,17 +57,11 @@ pretrainedDLCHOMP = data.trainedDLCHOMP;
 Use the code below to predict a start to goal trajectory on an example obstacle environment using the pretrained planner.
 
 ```matlab
-% Specify path to test sample.
-pathToTestSample = fullfile('test',robotName,'sample.json');
-
-% Read test environment's start, goal and obstacles.
-[start,goal,obstacles,~] = helper.extractDataFromDLCHOMPSample(pathToTestSample);
-
-% Make obstacles known to pretrained dlCHOMP.
-pretrainedDLCHOMP.SphericalObstacles = obstacles;
+% Make obstacle environment known to pretrained dlCHOMP.
+pretrainedDLCHOMP.SphericalObstacles = data.unseenObstacles;
 
 % Predict start to goal trajectory using pretrained planner.
-[optimWpts,optimTpts,solinfo] = optimize(pretrainedDLCHOMP,start,goal);
+[optimWpts,optimTpts,solinfo] = optimize(pretrainedDLCHOMP,data.unseenStart,data.unseenGoal);
 
 % Visualize results.
 show(pretrainedDLCHOMP,optimWpts);
