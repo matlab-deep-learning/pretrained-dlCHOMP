@@ -103,18 +103,33 @@ The architecture of dlCHOMP planner’s neural network **Initializer** module is
 
 The test dataset considered for each model consisted of 500 data samples and was the same as the validation dataset created while generating the training data for the model as shown in the **Training Data Generation section** above.
 
-| dlCHOMP Model           | Size (MB) | % of samples with dlCHOMP Itns < CHOMP | Mean % of Itns Saved  | % of samples with dlCHOMP Inference Time < CHOMP | Mean % of Time Saved | Feasibility
-|-----------------|:----------------------:|:----------------------------:|:---------:|:---------:|:---------:|:---------:|
-| kukaIiwa7 |       25        |               84.60           |  79.98     | 74.10 | 72.23 | 76.00 |
+| dlCHOMP Model | Size (MB) | % of samples with dlCHOMP Itns < CHOMP | Mean % of Itns Saved  | % of samples with dlCHOMP Inference Time < CHOMP | Mean % of Time Saved | Feasibility
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| fanucLRMate200ib | 25 | 87.20 | 80.42 | 79.10 | 72.30 | 78.65 |
+| fanucM16ib | 25 | 75.30 | 82.17 | 67.40 | 76.09 | 73.95 |
+| frankaEmikaPanda | 25 | 84.40 | 83.10 | 77.60 | 77.93 | 77.25 |
+| kinovaJacoJ2S7S300 | 25 | 99.00 | 78.63 | 74.00 | 75.07 | 68.55 |
+| kinovaGen3 | 25| 77.90 | 74.56 | 63.70 | 67.44 | 72.15 |
+| kukaIiwa7 | 25 | 83.80 | 79.02 | 74.90 | 72.38 | 80.40 |
+| meca500r3 | 25 | 85.00 | 79.24 | 74.90 | 71.41 | 65.15 |
+| techmanTM5-700 | 25 | 78.40 | 74.49 | 67.40 | 66.38 | 71.20 |
+
 
 
 ### CPU Time Metrics
 
 The average neural guess times and average inference times were computed over the test dataset consisting of 500 data samples.
 
-| dlCHOMP Model without codegen                           | Avg. Neural Guess Time (secs) | Avg. Inference Time (secs)|
-|---------------------------------|:---------------------:|:---------------------:|
-| kukaIiwa7 |         0.0609     | 0.2586|
+| dlCHOMP Model without codegen | Avg. Network Guess Time (secs) | Avg. Inference Time (secs)|
+|:---:|:---:|:---:|
+| fanucLRMate200ib | 0.0100 | 0.6899 |
+| fanucM16ib | 0.0069 | 1.2242 |
+| frankaEmikaPanda | 0.0075 | 1.6912 |
+| kinovaJacoJ2S7S300 | 0.0098 | 4.4300 | 
+| kinovaGen3 | 0.0072 | 3.0774 |
+| kukaIiwa7 | 0.0060 | 1.5289 |
+| meca500r3 | 0.0057 | 0.5911 |
+| techmanTM5-700 | 0.0052 | 1.2719 |
 
 
 

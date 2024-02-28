@@ -5,44 +5,32 @@ function data = downloadPretrainedDLCHOMPForRobot(robotName)
 %   Example:
 %       data = helper.downloadPretrainedDLCHOMPForRobot("kukaIiwa7");
 %
-    dataPath = fullfile('model',robotName);
+    downloadFolderPath = fullfile('models',robotName);
     baseURL = "https://ssd.mathworks.com/supportfiles/rst/data/dlCHOMP/R2024a";
-    switch robotName
-        case 'abbYuMi'
-            isRobotSupported = 1;
-        case 'fanucLRMate200ib'
-            isRobotSupported = 1;
-        case 'fanucM16ib'
-            isRobotSupported = 1;
-        case 'frankaEmikaPanda'
-            isRobotSupported = 1;
-        case 'kinovaJacoJ2S7S300'
-            isRobotSupported = 1;
-        case 'kinovaGen3'
-            isRobotSupported = 1;
-        case 'kukaIiwa7'
-            isRobotSupported = 1;
-        case 'meca500r3'
-            isRobotSupported = 1;
-        case 'techmanTM5-700'
-            isRobotSupported = 1;
-        case 'universalUR5e'
-            isRobotSupported = 1;
-        otherwise
-            isRobotSupported = 0;
-    end
+    supportedRobots = [...
+        "abbYuMi";...
+        "fanucLRMate200ib";...
+        "fanucM16ib";...
+        "frankaEmikaPanda";...
+        "kinovaJacoJ2S7S300";...
+        "kinovaGen3";...
+        "kukaIiwa7";...
+        "meca500r3";...
+        "techmanTM5-700";...
+        "universalUR5e"];
+    isRobotSupported = ismember(robotName,supportedRobots);
     if isRobotSupported
         zipFileName = sprintf("%sDLCHOMPTrained.zip",robotName);
-        zipFilePath = fullfile(dataPath,zipFileName);
+        zipFilePath = fullfile(downloadFolderPath,zipFileName);
         zipURL = fullfile(baseURL,zipFileName);
         matFileName = "trainedDLCHOMP.mat";
-        matFilePath = fullfile(dataPath,matFileName);
+        matFilePath = fullfile(downloadFolderPath,matFileName);
         if ~exist(matFilePath,'file')
             fprintf('Downloading pretrained DLCHOMP network and planner for %s.\n', robotName);
             fprintf('This can take several minutes to download...\n');
             mkdir(fileparts(zipFilePath));
             websave(zipFilePath,zipURL);
-            unzip(zipFilePath,dataPath);
+            unzip(zipFilePath,downloadFolderPath);
         end
         data = load(matFilePath);
     else
