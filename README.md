@@ -103,10 +103,37 @@ The test dataset considered for each pretrained network consisted of 1000 data s
 
 ### Size and Accuracy Metrics
 
-The columns in the table below can be interpreted as follows:
-- **Size (MB)**: Memory footprint of the DLCHOMP planner object in megabytes.
-- **% of samples with DLCHOMP Itns < CHOMP**: Percentage of data samples where the `dlCHOMP` planner took lesser number of iterations than an equivalent `manipulatorCHOMP` planner with similar optimization options.
-- **Mean % of Itns Saved**: For the data samples where the  `dlCHOMP` planner took lesser iterations than the equivalent `manipulatorCHOMP` planner, the mean percentage of iterations saved by the `dlCHOMP` planner measured as
+<table>
+ <tr>
+    <th>Header</th>
+    <th>Definition</th>
+  </tr>
+  <tr>
+    <th>Size (MB)</th>
+    <td>Memory footprint of the DLCHOMP planner object in megabytes.</td>
+  </tr>
+  <tr>
+    <th>% of samples with DLCHOMP Itns < CHOMP</th>
+    <td>Percentage of data samples where the <b>dlCHOMP</b> planner took lesser number of iterations than an equivalent <b>manipulatorCHOMP</b> planner with similar optimization options.</td>
+  </tr>
+  <tr>
+    <th>Mean % of Itns Saved</th>
+    <td>The mean percentage of iterations saved by the <b>dlCHOMP</b> planner for the data samples where the <b>dlCHOMP</b> planner took lesser iterations than the equivalent <b>manipulatorCHOMP</b> planner with similar optimization options.</td>
+  </tr>
+  <tr>
+    <th>% of samples with dlCHOMP Inference Time < CHOMP</th>
+    <td>Percentage of data samples where the <b>dlCHOMP</b> planner's optimization time was lesser than that of an equivalent <b>manipulatorCHOMP</b> planner with similar optimization options.</td>
+  </tr>
+  <tr>
+    <th>Mean % of Inference Time Saved</th>
+    <td>The mean percentage of inference time saved by the <b>dlCHOMP</b> planner for the data samples where the <b>dlCHOMP</b> planner took lesser iterations than that of an equivalent <b>manipulatorCHOMP</b> planner with similar optimization options. Inference time of a <b>dlCHOMP</b> planner is the sum of the network guess time and subsequant the optimization time. Inference time of a <b>manipulatorCHOMP</b> planner is the same as its optimization time since it does not have a neural network component.</td>
+  </tr>
+  <tr>
+    <th>Feasibility</th>
+    <td>The percentage of test data samples where the <b>dlCHOMP</b> planner gave a collision free optimized trajectory.</td>
+</table>
+
+The table above defines the headers present in the table below:
 
 | DLCHOMP Planner | Size (MB) | % of samples with DLCHOMP Itns < CHOMP | Mean % of Itns Saved  | % of samples with dlCHOMP Inference Time < CHOMP | Mean % of Time Saved | Feasibility
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -122,9 +149,24 @@ The columns in the table below can be interpreted as follows:
 
 ### CPU Time Metrics
 
-The average neural guess times and average inference times were computed over the test dataset consisting of 500 data samples.
+<table>
+ <tr>
+    <th>Header</th>
+    <th>Definition</th>
+  </tr>
+  <tr>
+    <th>Mean Network Guess Time (secs)</th>
+    <td>The mean time taken by the <b>dlCHOMP</b> planner to obtain its neural network's intermediate guess trajectory in seconds.</td>
+  </tr>
+  <tr>
+    <th>Mean Inference Time (secs)</th>
+    <td>The mean of the total time taken by the <b>dlCHOMP</b> planner to obtain its neural network's intermediate guess trajectory and then optimize it using CHOMP, in seconds.</td>
+  </tr>
+</table>
 
-| dlCHOMP Model without codegen | Avg. Network Guess Time (secs) | Avg. Inference Time (secs)|
+The table above defines the headers present in the table below:
+
+| dlCHOMP Model without codegen | Mean Network Guess Time (secs) | Mean Inference Time (secs)|
 |:---:|:---:|:---:|
 | fanucLRMate200ib | 0.0100 | 0.6899 |
 | fanucM16ib | 0.0069 | 1.2242 |
