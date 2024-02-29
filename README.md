@@ -1,5 +1,5 @@
-# Pretrained dlCHOMP Planners for Manipulator Motion Planning
-This repository provides pretrained dlCHOMP robotic manipulator trajectory planners for MATLAB®. These trajectory planners can output optimized start to goal trajectories in a given spherical obstacle environment. [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=matlab-deep-learning/pretrained-dlCHOMP)
+# Pretrained DLCHOMP Planners for Manipulator Motion Planning
+This repository provides pretrained networks for Deep-Learning-Based Covariant Hamiltonian Optimization for Motion Planning (DLCHOMP) of robotic manipulators for MATLAB®. These pretrained networks can output intermediate trajectory guesses for desired start to goal configurations in a given spherical obstacle environment. [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=matlab-deep-learning/pretrained-dlCHOMP)
 
 ![dlCHOMP High Level Visualization](/resources/images/dlCHOMP_High-Level_Vizualization.png)
 
@@ -29,7 +29,7 @@ addpath("src");
 ```
 
 ### Download the Pretrained Planner and Network
-Use the code below to download the pretrained `dlCHOMP` planner and pretrained `dlnetwork` network for a supported robot. For a list of supported robots, refer to the supported robots link specified under the [repository overview section above](#pretrained-dlchomp-planners-for-manipulator-motion-planning). Let's see the workflow for `kukaIiwa7` since it is one such supported robot. 
+Use the code below to download the pretrained network for a supported robot. For a list of supported robots, refer to the table under the [metrics and evaluation section](#metrics-and-evaluation) below. Let's see the workflow for **kukaIiwa7** since it is one such supported robot.
 
 ```matlab
 robotName = "kukaIiwa7";
@@ -47,23 +47,23 @@ summary(pretrainedNetwork);
 analyzeNetwork(pretrainedNetwork);
 ```
 
-If you only wished to obtain the network and not the planner, you can skip the next few sections, otherwise, continue.
+If you only wished to obtain the pretrained network and not the pretrained planner, you can skip the next few sections, otherwise, continue.
 
-### Obtain Pretrained Planner
+### Obtain Pretrained DLCHOMP Planner
 Use the code below to extract the pretrained planner.
 
 ```matlab
 pretrainedDLCHOMP = data.trainedDLCHOMP;
 ```
 
-### Predict Trajectory Using Pretrained Planner
+### Predict Trajectory Using Pretrained DLCHOMP Planner
 Use the code below to predict a start to goal trajectory on an example obstacle environment using the pretrained planner.
 
 ```matlab
-% Make obstacle environment known to pretrained dlCHOMP.
+% Make obstacle environment known to pretrained dlCHOMP planner.
 pretrainedDLCHOMP.SphericalObstacles = data.unseenObstacles;
 
-% Predict start to goal trajectory using pretrained planner.
+% Predict start to goal trajectory using planner.
 [optimWpts,optimTpts,solinfo] = optimize(pretrainedDLCHOMP,data.unseenStart,data.unseenGoal);
 
 % Visualize results.
@@ -71,39 +71,44 @@ show(pretrainedDLCHOMP,optimWpts);
 ```
 ![dlCHOMP Output Prediction](/resources/images/dlCHOMP_Output_Prediction.png)
 
-### Train Custom dlCHOMP From Scratch
-To generate data and train a custom dlCHOMP planner from scratch, follow the [Getting Started with DLCHOMP Optimizer for Manipulator Motion Planning](https://link-to-example) example.
+### Train Custom DLCHOMP Planner From Scratch
+To generate data and train a custom DLCHOMP planner from scratch, follow the [Getting Started with DLCHOMP Optimizer for Manipulator Motion Planning](https://link-to-example) example.
 
-### Train Custom dlCHOMP Using Transfer Learning
-Transfer learning enables you to adapt a pretrained dlCHOMP planner to your dataset. Create a custom dlCHOMP planner and train it for transfer learning to:
+### Train Custom DLCHOMP Planner Using Transfer Learning
+Transfer learning enables you to adapt a pretrained DLCHOMP planner to your dataset. Follow these examples to create a custom DLCHOMP planner and train it for transfer learning to:
 - A different number of waypoints in trajectory by following the [Using Pretrained DLCHOMP Optimizer to Predict Higher Number of Waypoints](https://www.mathworks.com/help/releases/R2024a/robotics/ug/retrain-dlchomp-optimizer-for-different-trajectory.html) example.
 - A different spherical obstacle environment and/or a different set of CHOMP optimization options by following the [Using Pretrained DLCHOMP Optimizer in Unseen Obstacle Environment](https://www.mathworks.com/help/releases/R2024a/robotics/ug/retrain-dlchomp-optimizer-for-new-environment.html) example.
 
-## dlCHOMP Details
+## DLCHOMP Details
 
-Optimization based motion planning tasks can be sped up using deep learning[1]. **dlCHOMP** is one such feature that utilizes a neural network initial guesser to provide an educated initial guess for a robot trajectory, which is then optimized using the **Covariant Hamiltonian Optimization for Motion Planning (CHOMP)**[2] algorithm.
+Optimization based motion planning tasks can be sped up using deep learning[1]. [dlCHOMP](https://www.mathworks.com/help/releases/R2024a/robotics/ref/dlchomp.html) is one such MATLAB® feature that utilizes a neural network initial guesser to provide an educated initial guess for a robot's intermediate start to goal trajectory, which is then optimized using the **Covariant Hamiltonian Optimization for Motion Planning (CHOMP)**[2] algorithm.
 
 ![dlCHOMP Overview](/resources/images/dlCHOMP_Overview.png)
 
-- **Env**: This is the spherical obstacle environment in which robot motion planning is to be performed. This is provided as a 4xN numeric input matrix to dlCHOMP. This input is the fed to the **CHOMP** and **BPS Encoder** modules.
+- **Env**: This is the spherical obstacle environment in which robot motion planning is to be performed. This is provided as a 4xN numeric input matrix to `dlCHOMP`. This input is the fed to the **CHOMP** and **BPS Encoder** modules.
 - **BPS Encoder**: This is an obstacle environment encoder that uses a technique known as basis point set encoding. The basis point set is a set of fixed points that are used to convert arbitrary size obstacle environment into a fixed size encoding vector. This encoding vector is then fed as input to the **Initializer** along with the desired start and goal configurations of the robot.
-- **Initializer**: This is a feed-forward neural network that guesses an initial trajectory for a robot by taking a start configuration, an end configuration and an obstacle environment encoding vector as inputs.
-- **CHOMP**: This is an optimizer that uses the Covariant Hamiltonian Optimization for Motion Planning[2] algorithm. It takes the initial trajectory guess output of the initializer and the spherical obstacle environment **Env** as its inputs to then output an optimized start to goal trajectory.
+- **Initializer**: This is a feed-forward neural network that guesses an initial intermediate trajectory for a robot by taking a start configuration, an end configuration and an obstacle environment encoding vector as inputs. An intermediate trajectory is a trajectory that does not include the start and goal configurations. More details on the architecture of this neural network can be seen in the [Neural Network Details section](#neural-network-details) below.
+- **CHOMP**: This is an optimizer that uses the Covariant Hamiltonian Optimization for Motion Planning[2] algorithm. It takes the initial intermediate trajectory guess output of the **Initializer** and the spherical obstacle environment **Env** as its inputs to then output an optimized start to goal trajectory.
 
 
-### Neural Network Initializer Details
+### Neural Network Details
 
 ![dlCHOMP Network Architecture](/resources/images/dlCHOMP_Network_Architecture.png)
 
-The architecture of dlCHOMP planner’s neural network **Initializer** module is shown above[2]. It takes a given motion task (world **WB**, start configuration **q1** and end configuration **qNt**) to output an initial guess **Q**. Blocks of tapered Fully Connected Layers (gray) are combined like the DenseNet architecture[3] via skip-connections and concatenations.
+The architecture of the DLCHOMP neural network is shown above[2]. It takes a given motion task (world **WB**, start configuration **q1** and end configuration **qNt**) to output an initial guess **Q**. Blocks of tapered Fully Connected Layers (gray) are combined like the DenseNet architecture[3] via skip-connections and concatenations.
 
 ## Metrics and Evaluation
 
+The test dataset considered for each pretrained network consisted of 1000 data samples, which were the same as the validation dataset created while generating the training data for training the network. These 1000 test samples were then flipped, for data augmentation, due to the symmetric nature of the motion planning problem, to create a total of 2000 test data samples. The results shown in the tables below are on such 2000 test data sample sets that were created for each robot.
+
 ### Size and Accuracy Metrics
 
-The test dataset considered for each model consisted of 500 data samples and was the same as the validation dataset created while generating the training data for the model as shown in the **Training Data Generation section** above.
+The columns in the table below can be interpreted as follows:
+- **Size (MB)**: Memory footprint of the DLCHOMP planner object in megabytes.
+- **% of samples with DLCHOMP Itns < CHOMP**: Percentage of data samples where the `dlCHOMP` planner took lesser number of iterations than an equivalent `manipulatorCHOMP` planner with similar optimization options.
+- **Mean % of Itns Saved**: For the data samples where the  `dlCHOMP` planner took lesser iterations than the equivalent `manipulatorCHOMP` planner, the mean percentage of iterations saved by the `dlCHOMP` planner measured as
 
-| dlCHOMP Model | Size (MB) | % of samples with dlCHOMP Itns < CHOMP | Mean % of Itns Saved  | % of samples with dlCHOMP Inference Time < CHOMP | Mean % of Time Saved | Feasibility
+| DLCHOMP Planner | Size (MB) | % of samples with DLCHOMP Itns < CHOMP | Mean % of Itns Saved  | % of samples with dlCHOMP Inference Time < CHOMP | Mean % of Time Saved | Feasibility
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | fanucLRMate200ib | 25 | 87.20 | 80.42 | 79.10 | 72.30 | 78.65 |
 | fanucM16ib | 25 | 75.30 | 82.17 | 67.40 | 76.09 | 73.95 |
@@ -113,7 +118,6 @@ The test dataset considered for each model consisted of 500 data samples and was
 | kukaIiwa7 | 25 | 83.80 | 79.02 | 74.90 | 72.38 | 80.40 |
 | meca500r3 | 25 | 85.00 | 79.24 | 74.90 | 71.41 | 65.15 |
 | techmanTM5-700 | 25 | 78.40 | 74.49 | 67.40 | 66.38 | 71.20 |
-
 
 
 ### CPU Time Metrics
