@@ -1,4 +1,4 @@
-# Pretrained DLCHOMP Planners for Manipulator Motion Planning
+# Pretrained DLCHOMP Networks for Manipulator Motion Planning
 This repository provides pretrained networks for Deep-Learning-Based Covariant Hamiltonian Optimization for Motion Planning (DLCHOMP) of robotic manipulators for MATLAB®. These pretrained networks can output intermediate trajectory guesses for desired start to goal configurations in a given spherical obstacle environment. [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=matlab-deep-learning/pretrained-dlCHOMP)
 
 ![dlCHOMP High Level Visualization](/resources/images/dlCHOMP_High-Level_Vizualization.png)
@@ -28,7 +28,7 @@ Add path to the source directory.
 addpath("src");
 ```
 
-### Download the Pretrained Planner and Network
+### Download the Pretrained Network
 Use the code below to download the pretrained network for a supported robot. For a list of supported robots, refer to the table under the [metrics and evaluation section](#metrics-and-evaluation) below. Let's see the workflow for **kukaIiwa7** since it is one such supported robot.
 
 ```matlab
@@ -81,21 +81,21 @@ Transfer learning enables you to adapt a pretrained DLCHOMP planner to your data
 
 ## DLCHOMP Details
 
-Optimization based motion planning tasks can be sped up using deep learning[1]. [dlCHOMP](https://www.mathworks.com/help/releases/R2024a/robotics/ref/dlchomp.html) is one such MATLAB® feature that utilizes a neural network initial guesser to provide an educated initial guess for a robot's intermediate start to goal trajectory, which is then optimized using the **Covariant Hamiltonian Optimization for Motion Planning (CHOMP)**[2] algorithm.
+Optimization based motion planning tasks can be sped up using deep learning[[1]](#references). [dlCHOMP](https://www.mathworks.com/help/releases/R2024a/robotics/ref/dlchomp.html) is one such MATLAB® feature that utilizes a neural network initial guesser to provide an educated initial guess for a robot's intermediate start to goal trajectory, which is then optimized using the **Covariant Hamiltonian Optimization for Motion Planning (CHOMP)**[[2]](#references) algorithm.
 
 ![dlCHOMP Overview](/resources/images/dlCHOMP_Overview.png)
 
 - **Env**: This is the spherical obstacle environment in which robot motion planning is to be performed. This is provided as a 4xN numeric input matrix to `dlCHOMP`. This input is the fed to the **CHOMP** and **BPS Encoder** modules.
 - **BPS Encoder**: This is an obstacle environment encoder that uses a technique known as basis point set encoding. The basis point set is a set of fixed points that are used to convert arbitrary size obstacle environment into a fixed size encoding vector. This encoding vector is then fed as input to the **Initializer** along with the desired start and goal configurations of the robot.
 - **Initializer**: This is a feed-forward neural network that guesses an initial intermediate trajectory for a robot by taking a start configuration, an end configuration and an obstacle environment encoding vector as inputs. An intermediate trajectory is a trajectory that does not include the start and goal configurations. More details on the architecture of this neural network can be seen in the [Neural Network Details section](#neural-network-details) below.
-- **CHOMP**: This is an optimizer that uses the Covariant Hamiltonian Optimization for Motion Planning[2] algorithm. It takes the initial intermediate trajectory guess output of the **Initializer** and the spherical obstacle environment **Env** as its inputs to then output an optimized start to goal trajectory.
+- **CHOMP**: This is an optimizer that uses the Covariant Hamiltonian Optimization for Motion Planning[[2]](#references) algorithm. It takes the initial intermediate trajectory guess output of the **Initializer** and the spherical obstacle environment **Env** as its inputs to then output an optimized start to goal trajectory.
 
 
 ### Neural Network Details
 
 ![dlCHOMP Network Architecture](/resources/images/dlCHOMP_Network_Architecture.png)
 
-The architecture of the DLCHOMP neural network is shown above[2]. It takes a given motion task (world **WB**, start configuration **q1** and end configuration **qNt**) to output an initial guess **Q**. Blocks of tapered Fully Connected Layers (gray) are combined like the DenseNet architecture[3] via skip-connections and concatenations.
+The architecture of the DLCHOMP neural network is shown above[[2]](#references). It takes a given motion task (world **WB**, start configuration **q1** and end configuration **qNt**) to output an initial guess **Q**. Blocks of tapered Fully Connected Layers (gray) are combined like the DenseNet architecture[[3]](#references) via skip-connections and concatenations.
 
 ## Metrics and Evaluation
 
