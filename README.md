@@ -25,14 +25,14 @@ Download or clone this repository to your machine and open it in MATLAB®.
 Add path to the source directory.
 
 ```matlab
-addpath('src');
+addpath("src");
 ```
 
 ### Download the Pretrained Planner and Network
 Use the code below to download the pretrained `dlCHOMP` planner and pretrained `dlnetwork` network for a supported robot. For a list of supported robots, refer to the supported robots link specified under the [repository overview section above](#pretrained-dlchomp-planners-for-manipulator-motion-planning). Let's see the workflow for `kukaIiwa7` since it is one such supported robot. 
 
 ```matlab
-robotName = 'kukaIiwa7';
+robotName = "kukaIiwa7";
 data = helper.downloadPretrainedDLCHOMPForRobot(robotName);
 ```
 
