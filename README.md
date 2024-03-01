@@ -69,7 +69,7 @@ pretrainedDLCHOMP.SphericalObstacles = data.unseenObstacles;
 % Visualize results.
 show(pretrainedDLCHOMP,optimWpts);
 ```
-![dlCHOMP Output Prediction](/resources/images/dlCHOMP_Output_Prediction.svg)
+![dlCHOMP Output Prediction](/resources/images/dlCHOMP_Output_Prediction.png)
 
 ### Train Custom DLCHOMP Planner From Scratch
 To generate data and train a custom DLCHOMP planner from scratch, follow the [Getting Started with DLCHOMP Optimizer for Manipulator Motion Planning](https://link-to-example) example.
