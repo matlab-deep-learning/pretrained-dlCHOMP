@@ -1,7 +1,7 @@
 # Pretrained DLCHOMP Networks for Manipulator Motion Planning
 This repository provides pretrained networks for Deep-Learning-Based Covariant Hamiltonian Optimization for Motion Planning (DLCHOMP) of robotic manipulators for MATLAB®. These pretrained networks can output intermediate trajectory guesses for desired start to goal configurations in a given spherical obstacle environment. [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=matlab-deep-learning/pretrained-dlCHOMP)
 
-![dlCHOMP High Level Visualization](/resources/images/dlCHOMP_High-Level_Vizualization.png)
+![dlCHOMP High Level Visualization](/resources/images/dlCHOMP_High-Level_Vizualization.svg)
 
 **Creator**: MathWorks Development
 
@@ -69,7 +69,7 @@ pretrainedDLCHOMP.SphericalObstacles = data.unseenObstacles;
 % Visualize results.
 show(pretrainedDLCHOMP,optimWpts);
 ```
-![dlCHOMP Output Prediction](/resources/images/dlCHOMP_Output_Prediction.png)
+![dlCHOMP Output Prediction](/resources/images/dlCHOMP_Output_Prediction.svg)
 
 ### Train Custom DLCHOMP Planner From Scratch
 To generate data and train a custom DLCHOMP planner from scratch, follow the [Getting Started with DLCHOMP Optimizer for Manipulator Motion Planning](https://link-to-example) example.
@@ -83,7 +83,7 @@ Transfer learning enables you to adapt a pretrained DLCHOMP planner to your data
 
 Optimization based motion planning tasks can be sped up using deep learning[[1]](#references). [dlCHOMP](https://www.mathworks.com/help/releases/R2024a/robotics/ref/dlchomp.html) is one such MATLAB® feature that utilizes a neural network initial guesser to provide an educated initial guess for a robot's intermediate start to goal trajectory, which is then optimized using the **Covariant Hamiltonian Optimization for Motion Planning (CHOMP)**[[2]](#references) algorithm.
 
-![dlCHOMP Overview](/resources/images/dlCHOMP_Overview.png)
+![dlCHOMP Overview](/resources/images/dlCHOMP_Overview.svg)
 
 - **Env**: This is the spherical obstacle environment in which robot motion planning is to be performed. This is provided as a 4xN numeric input matrix to `dlCHOMP`. This input is the fed to the **CHOMP** and **BPS Encoder** modules.
 - **BPS Encoder**: This is an obstacle environment encoder that uses a technique known as basis point set encoding. The basis point set is a set of fixed points that are used to convert arbitrary size obstacle environment into a fixed size encoding vector. This encoding vector is then fed as input to the **Initializer** along with the desired start and goal configurations of the robot.
@@ -93,7 +93,7 @@ Optimization based motion planning tasks can be sped up using deep learning[[1]]
 
 ### Neural Network Details
 
-![dlCHOMP Network Architecture](/resources/images/dlCHOMP_Network_Architecture.png)
+![dlCHOMP Network Architecture](/resources/images/dlCHOMP_Network_Architecture.svg)
 
 The architecture of the DLCHOMP neural network is shown above[[2]](#references). It takes a given motion task (world **WB**, start configuration **q1** and end configuration **qNt**) to output an initial guess **Q**. Blocks of tapered Fully Connected Layers (gray) are combined like the DenseNet architecture[[3]](#references) via skip-connections and concatenations.
 
