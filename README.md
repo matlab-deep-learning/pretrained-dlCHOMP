@@ -187,6 +187,8 @@ The table above defines the headers present in the table below:
 | techmanTM5-700 | 0.0052 | 1.2719 |
 | universalUR5e | 0.0075 | 1.6614 |
 
+**Note:** abbYuMi being the only two-armed robot in this list, takes much longer for optimization as compared to other robots due to the higher probability of self-collisions.
+
 
 ## References
 [1] J. Tenhumberg, D. Burschka and B. BÃ¤uml, "Speeding Up Optimization-based Motion Planning through Deep Learning," 2022 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Kyoto, Japan, 2022, pp. 7182-7189, doi: 10.1109/IROS47612.2022.9981717.
