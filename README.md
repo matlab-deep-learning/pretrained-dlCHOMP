@@ -137,6 +137,7 @@ The table above defines the headers present in the table below:
 
 | DLCHOMP Planner | Size (MB) | % of samples with DLCHOMP Itns < CHOMP | Mean % of Itns Saved  | % of samples with dlCHOMP Inference Time < CHOMP | Mean % of Time Saved | Feasibility
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| abbYuMi | 25 | 84.70 | 78.36 | 78.20 | 73.95 | 74.50 |
 | fanucLRMate200ib | 25 | 87.20 | 80.42 | 79.10 | 72.30 | 78.65 |
 | fanucM16ib | 25 | 75.30 | 82.17 | 67.40 | 76.09 | 73.95 |
 | frankaEmikaPanda | 25 | 84.40 | 83.10 | 77.60 | 77.93 | 77.25 |
@@ -145,6 +146,7 @@ The table above defines the headers present in the table below:
 | kukaIiwa7 | 25 | 83.80 | 79.02 | 74.90 | 72.38 | 80.40 |
 | meca500r3 | 25 | 85.00 | 79.24 | 74.90 | 71.41 | 65.15 |
 | techmanTM5-700 | 25 | 78.40 | 74.49 | 67.40 | 66.38 | 71.20 |
+| universalUR5e | 25 | 73.60 | 76.44 | 62.20 | 70.21 | 71.05 |
 
 
 ### CPU Time Metrics
@@ -168,6 +170,7 @@ The table above defines the headers present in the table below:
 
 | dlCHOMP Model without codegen | Mean Network Guess Time (secs) | Mean Inference Time (secs)|
 |:---:|:---:|:---:|
+| abbYuMi | 0.0072 | 19.2465 |
 | fanucLRMate200ib | 0.0100 | 0.6899 |
 | fanucM16ib | 0.0069 | 1.2242 |
 | frankaEmikaPanda | 0.0075 | 1.6912 |
@@ -176,7 +179,7 @@ The table above defines the headers present in the table below:
 | kukaIiwa7 | 0.0060 | 1.5289 |
 | meca500r3 | 0.0057 | 0.5911 |
 | techmanTM5-700 | 0.0052 | 1.2719 |
-
+| universalUR5e | 0.0075 | 1.6614 |
 
 
 ## References
