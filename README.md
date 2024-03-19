@@ -86,20 +86,20 @@ Optimization based motion planning tasks can be sped up using deep learning[[1]]
 ![dlCHOMP Overview](/resources/images/dlCHOMP_Overview.svg)
 
 - **Env**: This is the spherical obstacle environment in which robot motion planning is to be performed. This is provided as a 4xN numeric input matrix to `dlCHOMP`. This input is the fed to the **CHOMP** and **BPS Encoder** modules.
-- **BPS Encoder**: This is an obstacle environment encoder that uses a technique known as basis point set encoding. The basis point set is a set of fixed points that are used to convert arbitrary size obstacle environment into a fixed size encoding vector. This encoding vector is then fed as input to the **Initializer** along with the desired start and goal configurations of the robot.
-- **Initializer**: This is a feed-forward neural network that guesses an initial intermediate trajectory for a robot by taking a start configuration, an end configuration and an obstacle environment encoding vector as inputs. An intermediate trajectory is a trajectory that does not include the start and goal configurations. More details on the architecture of this neural network can be seen in the [Neural Network Details section](#neural-network-details) below.
-- **CHOMP**: This is an optimizer that uses the Covariant Hamiltonian Optimization for Motion Planning[[2]](#references) algorithm. It takes the initial intermediate trajectory guess output of the **Initializer** and the spherical obstacle environment **Env** as its inputs to then output an optimized start to goal trajectory.
+- **BPS Encoder**: This is an obstacle environment encoder that uses a technique known as basis point set encoding. The basis point set is a set of fixed points that are used to convert an arbitrary size obstacle environment into a fixed size encoding vector. This encoding vector is then fed as an input to the **Pretrained Network** module along with the desired start and goal configurations of the robot.
+- **Pretrained Network**: This is a feed-forward neural network that guesses an initial intermediate trajectory for a robot by taking a start configuration, an end configuration and an obstacle environment encoding vector as inputs. An intermediate trajectory is a trajectory that does not include the start and goal configurations. More details on the architecture of this neural network can be seen in the [Neural Network Details section](#neural-network-details) below.
+- **CHOMP**: This is an optimizer that uses the Covariant Hamiltonian Optimization for Motion Planning[[2]](#references) algorithm. It takes the initial intermediate trajectory guess output of the **Pretrained Network** and the spherical obstacle environment **Env** as its inputs to then output an optimized start to goal trajectory.
 
 
 ### Neural Network Details
 
 ![dlCHOMP Network Architecture](/resources/images/dlCHOMP_Network_Architecture.svg)
 
-The architecture of the DLCHOMP neural network is shown above[[2]](#references). It takes a given motion task (world **WB**, start configuration **q1** and end configuration **qNt**) to output an initial guess **Q**. Blocks of tapered Fully Connected Layers (gray) are combined like the DenseNet architecture[[3]](#references) via skip-connections and concatenations.
+The architecture of the DLCHOMP neural network is shown above[[2]](#references). It takes a given motion task (a world obstacle encoding vector **WB**, a start configuration **q1** and an end configuration **qNt**) to output an initial guess **Q**. Blocks of tapered Fully Connected Layers (gray) are combined like the DenseNet architecture[[3]](#references) via skip-connections and concatenations (circular nodes).
 
 ## Metrics and Evaluation
 
-The test dataset considered for each pretrained network consisted of 1000 data samples, which were the same as the validation dataset created while generating the training data for training the network. These 1000 test samples were then flipped, for data augmentation, due to the symmetric nature of the motion planning problem, to create a total of 2000 test data samples. The results shown in the tables below are on such 2000 test data sample sets that were created for each robot.
+The test dataset for each pretrained network consisted of 1000 data samples, which were the same as the validation dataset created while generating the training data for training the network. These 1000 test samples were then flipped, for data augmentation, due to the symmetric nature of the motion planning problem, to create a total of 2000 test data samples. The results shown in the tables below are on these 2000 test data sample sets that were created for each robot.
 
 ### Size and Accuracy Metrics
 
@@ -107,6 +107,10 @@ The test dataset considered for each pretrained network consisted of 1000 data s
  <tr>
     <th>Header</th>
     <th>Definition</th>
+  </tr>
+  <tr>
+    <th>DLCHOMP Planner</th>
+    <td>Name of the supported robot for whom the metrics are being listed in the current row. This name is a short-hand name used to quickly identify each robot. To obtain the full robot name, and hence determine the exact robot model, [refer to this page](https://www.mathworks.com/help/releases/R2024a/robotics/ref/dlchomp.html#mw_93957c22-f6cc-4e8c-ac45-1ae16cfcb2ef). </td>
   </tr>
   <tr>
     <th>Size (MB)</th>
@@ -126,7 +130,7 @@ The test dataset considered for each pretrained network consisted of 1000 data s
   </tr>
   <tr>
     <th>Mean % of Inference Time Saved</th>
-    <td>The mean percentage of inference time saved by the <b>dlCHOMP</b> planner for the data samples where the <b>dlCHOMP</b> planner took lesser iterations than that of an equivalent <b>manipulatorCHOMP</b> planner with similar optimization options. Inference time of a <b>dlCHOMP</b> planner is the sum of the network guess time and subsequant the optimization time. Inference time of a <b>manipulatorCHOMP</b> planner is the same as its optimization time since it does not have a neural network component.</td>
+    <td>The mean percentage of inference time saved by the <b>dlCHOMP</b> planner for the data samples where the <b>dlCHOMP</b> planner took lesser iterations than that of an equivalent <b>manipulatorCHOMP</b> planner with similar optimization options. Inference time of a <b>dlCHOMP</b> planner is the sum of the network guess time and subsequent the optimization time. Inference time of a <b>manipulatorCHOMP</b> planner is the same as its optimization time since it does not have a neural network component.</td>
   </tr>
   <tr>
     <th>Feasibility</th>
@@ -156,6 +160,8 @@ The table above defines the headers present in the table below:
     <th>Header</th>
     <th>Definition</th>
   </tr>
+  <th>DLCHOMP Model Without Codegen</th>
+    <td>Name of the supported robot for whom the metrics are being listed in the current row. These metrics were computed in MATLAB without using its code generation feature. This name is a short-hand name used to quickly identify each robot. To obtain the full robot name, and hence determine the exact robot model, [refer to this page](https://www.mathworks.com/help/releases/R2024a/robotics/ref/dlchomp.html#mw_93957c22-f6cc-4e8c-ac45-1ae16cfcb2ef). </td>
   <tr>
     <th>Mean Network Guess Time (secs)</th>
     <td>The mean time taken by the <b>dlCHOMP</b> planner to obtain its neural network's intermediate guess trajectory in seconds.</td>
@@ -168,7 +174,7 @@ The table above defines the headers present in the table below:
 
 The table above defines the headers present in the table below:
 
-| dlCHOMP Model without codegen | Mean Network Guess Time (secs) | Mean Inference Time (secs)|
+| DLCHOMP Model without Codegen | Mean Network Guess Time (secs) | Mean Inference Time (secs)|
 |:---:|:---:|:---:|
 | abbYuMi | 0.0072 | 19.2465 |
 | fanucLRMate200ib | 0.0100 | 0.6899 |
