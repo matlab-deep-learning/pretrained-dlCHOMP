@@ -118,23 +118,23 @@ The test dataset for each pretrained network consists of 1000 data samples, iden
   </tr>
   <tr>
     <th>% of samples with DLCHOMP Itns < CHOMP</th>
-    <td>Percentage of data samples where the ``dlCHOMP`` optimizer took lesser number of iterations than an equivalent ``manipulatorCHOMP`` optimizer with similar optimization options.</td>
+    <td>Percentage of data samples where the dlCHOMP optimizer took lesser number of iterations than an equivalent manipulatorCHOMP optimizer with similar optimization options.</td>
   </tr>
   <tr>
     <th>Mean % of Itns Saved</th>
-    <td>The mean percentage of iterations saved by the ``dlCHOMP`` optimizer for the data samples where the ``dlCHOMP`` optimizer took lesser iterations than the equivalent ``manipulatorCHOMP`` optimizer with similar optimization options.</td>
+    <td>The mean percentage of iterations saved by the dlCHOMP optimizer for the data samples where the dlCHOMP optimizer took lesser iterations than the equivalent manipulatorCHOMP optimizer with similar optimization options.</td>
   </tr>
   <tr>
     <th>% of samples with DLCHOMP Inference Time < CHOMP</th>
-    <td>Percentage of data samples where the ``dlCHOMP`` optimizer's optimization time was lesser than that of an equivalent ``manipulatorCHOMP`` optimizer with similar optimization options.</td>
+    <td>Percentage of data samples where the dlCHOMP optimizer's optimization time was lesser than that of an equivalent manipulatorCHOMP optimizer with similar optimization options.</td>
   </tr>
   <tr>
     <th>Mean % of Inference Time Saved</th>
-    <td>The mean percentage of inference time saved by the ``dlCHOMP`` optimizer for the data samples where the ``dlCHOMP`` optimizer took lesser iterations than that of an equivalent ``manipulatorCHOMP`` optimizer with similar optimization options. Inference time of a ``dlCHOMP`` optimizer is the sum of the network guess time and subsequent the optimization time. Inference time of a ``manipulatorCHOMP`` optimizer is the same as its optimization time since it does not have a neural network component.</td>
+    <td>The mean percentage of inference time saved by the dlCHOMP optimizer for the data samples where the dlCHOMP optimizer took lesser iterations than that of an equivalent manipulatorCHOMP optimizer with similar optimization options. Inference time of a dlCHOMP optimizer is the sum of the network guess time and subsequent the optimization time. Inference time of a manipulatorCHOMP optimizer is the same as its optimization time since it does not have a neural network component.</td>
   </tr>
   <tr>
     <th>Feasibility</th>
-    <td>The percentage of test data samples where the ``dlCHOMP`` optimizer gave a collision free optimized trajectory.</td>
+    <td>The percentage of test data samples where the dlCHOMP optimizer gave a collision free optimized trajectory.</td>
 </table>
 
 The table above defines the headers present in the table below:
@@ -164,11 +164,11 @@ The table above defines the headers present in the table below:
     <td>Name of the supported robot for whom the metrics are being listed in the current row. These metrics were computed in MATLAB without using its code generation feature. This name is a short-hand name used to quickly identify each robot. To obtain the full robot name, and hence determine the exact robot model, [Pretrained Optimizers](https://www.mathworks.com/help/releases/R2024a/robotics/ref/dlchomp.html#mw_93957c22-f6cc-4e8c-ac45-1ae16cfcb2ef). </td>
   <tr>
     <th>Mean Network Guess Time (secs)</th>
-    <td>The mean time taken by the ``dlCHOMP`` optimizer to obtain its neural network's intermediate guess trajectory in seconds.</td>
+    <td>The mean time taken by the dlCHOMP optimizer to obtain its neural network's intermediate guess trajectory in seconds.</td>
   </tr>
   <tr>
     <th>Mean Inference Time (secs)</th>
-    <td>The mean of the total time taken by the ``dlCHOMP`` optimizer to obtain its neural network's intermediate guess trajectory and then optimize it using CHOMP, in seconds.</td>
+    <td>The mean of the total time taken by the dlCHOMP optimizer to obtain its neural network's intermediate guess trajectory and then optimize it using CHOMP, in seconds.</td>
   </tr>
 </table>
 
