@@ -1,7 +1,7 @@
 # Pretrained DLCHOMP Networks for Manipulator Motion Planning
 This repository provides pretrained networks for Deep-Learning-Based Covariant Hamiltonian Optimization for Motion Planning (DLCHOMP) of robotic manipulators for MATLAB®. These pretrained networks can output intermediate trajectory guesses for desired start to goal configurations in a given spherical obstacle environment. [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=matlab-deep-learning/pretrained-dlCHOMP)
 
-![`dlCHOMP` High Level Visualization](/resources/images/dlCHOMP_High-Level_Vizualization.svg)
+![DLCHOMP High Level Visualization](/resources/images/dlCHOMP_High-Level_Vizualization.svg)
 
 **Creator**: MathWorks Development
 
@@ -29,7 +29,7 @@ addpath("src");
 ```
 
 ### Download Pretrained Network
-Use the code below to download the pretrained network for a supported robot. For a list of supported robots, refer to the table in the [Metrics and Evaluation](#metrics-and-evaluation) section. To demonstrate this workflow, download the pretrained DLCHOMP network for the KUKA LBR iiwa 7.
+Use the code below to download the pretrained network for a supported robot. For a list of supported robots, see the table in the [Metrics and Evaluation](#metrics-and-evaluation) section. To demonstrate this workflow, download the pretrained DLCHOMP network for the KUKA LBR iiwa 7.
 
 ```matlab
 robotName = "kukaIiwa7";
@@ -70,7 +70,7 @@ show(pretrainedDLCHOMP,optimWpts);
 ![DLCHOMP Output Prediction](/resources/images/dlCHOMP_Output_Prediction.png)
 
 ### Create and Train DLCHOMP Optimizer for New Applications
-To generate data and train a DLCHOMP optimizer to suit your application or task, follow the [Train Deep-Learning-Based CHOMP Optimizer for Motion Planning](https://www.mathworks.com/help/releases/2024a/robotics/ug/train-deep-learning-based-chomp-optimizer.html) example.
+To generate data and train a DLCHOMP optimizer to suit your application or task, follow the [Train Deep-Learning-Based CHOMP Optimizer for Motion Planning](https://www.mathworks.com/help/releases/R2024a/robotics/ug/train-deep-learning-based-chomp-optimizer.html) example.
 
 ### Train Custom DLCHOMP Optimizer Using Transfer Learning
 Transfer learning enables you to adapt a pretrained DLCHOMP optimizer to your dataset. Follow these examples to create a custom DLCHOMP optimizer and train it for transfer learning to:
@@ -118,23 +118,23 @@ The test dataset for each pretrained network consists of 1000 data samples, iden
   </tr>
   <tr>
     <th>% of samples with DLCHOMP Itns < CHOMP</th>
-    <td>Percentage of data samples where the `dlCHOMP` optimizer took lesser number of iterations than an equivalent `manipulatorCHOMP` optimizer with similar optimization options.</td>
+    <td>Percentage of data samples where the ``dlCHOMP`` optimizer took lesser number of iterations than an equivalent ``manipulatorCHOMP`` optimizer with similar optimization options.</td>
   </tr>
   <tr>
     <th>Mean % of Itns Saved</th>
-    <td>The mean percentage of iterations saved by the `dlCHOMP` optimizer for the data samples where the `dlCHOMP` optimizer took lesser iterations than the equivalent `manipulatorCHOMP` optimizer with similar optimization options.</td>
+    <td>The mean percentage of iterations saved by the ``dlCHOMP`` optimizer for the data samples where the ``dlCHOMP`` optimizer took lesser iterations than the equivalent ``manipulatorCHOMP`` optimizer with similar optimization options.</td>
   </tr>
   <tr>
     <th>% of samples with DLCHOMP Inference Time < CHOMP</th>
-    <td>Percentage of data samples where the `dlCHOMP` optimizer's optimization time was lesser than that of an equivalent `manipulatorCHOMP` optimizer with similar optimization options.</td>
+    <td>Percentage of data samples where the ``dlCHOMP`` optimizer's optimization time was lesser than that of an equivalent ``manipulatorCHOMP`` optimizer with similar optimization options.</td>
   </tr>
   <tr>
     <th>Mean % of Inference Time Saved</th>
-    <td>The mean percentage of inference time saved by the `dlCHOMP` optimizer for the data samples where the `dlCHOMP` optimizer took lesser iterations than that of an equivalent `manipulatorCHOMP` optimizer with similar optimization options. Inference time of a `dlCHOMP` optimizer is the sum of the network guess time and subsequent the optimization time. Inference time of a `manipulatorCHOMP` optimizer is the same as its optimization time since it does not have a neural network component.</td>
+    <td>The mean percentage of inference time saved by the ``dlCHOMP`` optimizer for the data samples where the ``dlCHOMP`` optimizer took lesser iterations than that of an equivalent ``manipulatorCHOMP`` optimizer with similar optimization options. Inference time of a ``dlCHOMP`` optimizer is the sum of the network guess time and subsequent the optimization time. Inference time of a ``manipulatorCHOMP`` optimizer is the same as its optimization time since it does not have a neural network component.</td>
   </tr>
   <tr>
     <th>Feasibility</th>
-    <td>The percentage of test data samples where the `dlCHOMP` optimizer gave a collision free optimized trajectory.</td>
+    <td>The percentage of test data samples where the ``dlCHOMP`` optimizer gave a collision free optimized trajectory.</td>
 </table>
 
 The table above defines the headers present in the table below:
@@ -161,14 +161,14 @@ The table above defines the headers present in the table below:
     <th>Definition</th>
   </tr>
   <th>DLCHOMP Model Without Codegen</th>
-    <td>Name of the supported robot for whom the metrics are being listed in the current row. These metrics were computed in MATLAB without using its code generation feature. This name is a short-hand name used to quickly identify each robot. To obtain the full robot name, and hence determine the exact robot model, [refer to this page](https://www.mathworks.com/help/releases/R2024a/robotics/ref/dlchomp.html#mw_93957c22-f6cc-4e8c-ac45-1ae16cfcb2ef). </td>
+    <td>Name of the supported robot for whom the metrics are being listed in the current row. These metrics were computed in MATLAB without using its code generation feature. This name is a short-hand name used to quickly identify each robot. To obtain the full robot name, and hence determine the exact robot model, [Pretrained Optimizers](https://www.mathworks.com/help/releases/R2024a/robotics/ref/dlchomp.html#mw_93957c22-f6cc-4e8c-ac45-1ae16cfcb2ef). </td>
   <tr>
     <th>Mean Network Guess Time (secs)</th>
-    <td>The mean time taken by the `dlCHOMP` optimizer to obtain its neural network's intermediate guess trajectory in seconds.</td>
+    <td>The mean time taken by the ``dlCHOMP`` optimizer to obtain its neural network's intermediate guess trajectory in seconds.</td>
   </tr>
   <tr>
     <th>Mean Inference Time (secs)</th>
-    <td>The mean of the total time taken by the `dlCHOMP` optimizer to obtain its neural network's intermediate guess trajectory and then optimize it using CHOMP, in seconds.</td>
+    <td>The mean of the total time taken by the ``dlCHOMP`` optimizer to obtain its neural network's intermediate guess trajectory and then optimize it using CHOMP, in seconds.</td>
   </tr>
 </table>
 
@@ -187,7 +187,7 @@ The table above defines the headers present in the table below:
 | techmanTM5-700 | 0.0052 | 1.2719 |
 | universalUR5e | 0.0075 | 1.6614 |
 
-**Note:** abbYuMi being the only two-armed robot in this list, takes much longer for optimization as compared to other robots due to the higher probability of self-collisions.
+**Note:** Dual-arm YuMi® (abbYuMi) being the only two-armed robot in this list, takes much longer for optimization as compared to other robots due to the higher probability of self-collisions.
 
 
 ## References
