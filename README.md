@@ -139,7 +139,7 @@ The test dataset for each pretrained network consists of 1000 data samples, iden
 
 The table above defines the headers present in the table below:
 
-| DLCHOMP Optimizer | Size (MB) | % of samples with DLCHOMP Itns < CHOMP | Mean % of Itns Saved  | % of samples with `dlCHOMP` Inference Time < CHOMP | Mean % of Time Saved | Feasibility
+| DLCHOMP Optimizer | Size (MB) | % of samples with DLCHOMP Itns < CHOMP | Mean % of Itns Saved  | % of samples with DLCHOMP Inference Time < CHOMP | Mean % of Time Saved | Feasibility
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | abbYuMi | 25 | 84.70 | 78.36 | 78.20 | 73.95 | 74.50 |
 | fanucLRMate200ib | 25 | 87.20 | 80.42 | 79.10 | 72.30 | 78.65 |
